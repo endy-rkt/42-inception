@@ -2,7 +2,15 @@ FROM alpine:3.21
 
 RUN apk update && apk upgrade && apk add --no-cache nginx openrc && rm /var/cache/apk/*
 
-EXPOSE 80
+COPY cert/secret.key /etc/nginx
+
+COPY cert/secret.crt /etc/nginx
+
+COPY conf/default.conf /etc/nginx/http.d
+
+COPY conf/nginx.conf /etc/nginx
+
+EXPOSE 443
 
 ENTRYPOINT ["nginx"]
 
