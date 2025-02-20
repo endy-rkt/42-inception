@@ -7,3 +7,6 @@
     . verify that is really only tlsv1.3 []
     . create some html index [] optss
 
+- create mariaDB via Dockerfile using alpine []
+    . no nginx in  it []
+    . start up []
