@@ -1,10 +1,11 @@
 FROM alpine:3.21
 
-RUN apk update && apk upgrade && apk add --no-cache mariadb mariadb-client mariadb-server-utils && rm /var/cache/apk/*
+RUN apk update && apk upgrade \
+&& apk add --no-cache mariadb mariadb-client \
+&& rm /var/cache/apk/*
 
-RUN mkdir -p /run/mysqld && chmod +r /run/mysqld && chown mysql:mysql /run/mysqld
-
-RUN mkdir -p /var/lib/mysql && chown mysql:mysql /var/lib/mysql
+RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld \
+&& mkdir -p /var/lib/mysql && chown mysql:mysql /var/lib/mysql
 
 COPY conf/my.cnf /etc
 
