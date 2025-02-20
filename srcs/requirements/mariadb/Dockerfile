@@ -13,6 +13,6 @@ RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
 EXPOSE 3306
 
-ENTRYPOINT ["mariadbd"]
+ENTRYPOINT ["mariadbd-safe"]
 
 CMD ["--user=mysql"]
