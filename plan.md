@@ -8,6 +8,7 @@
 
         test: curl -I -v --tlsv1.3 --tls-max 1.3s https://localhost:8080
     . create some html index [] optss
+    . restart on crash []
 
 - create mariaDB via Dockerfile using alpine []
     . no nginx in  it [OK]
@@ -15,5 +16,12 @@
     . is on foreground [OK]
     . start with some data []
     . is secure installation []
+    . restart on crash []
 
-
+- create wordpress via Dockerfile using alpine []
+    . install php-fpm  []
+    . configure php-fpm []
+    . install wordpress
+    . configure and link php-fpm and wordpress []
+    . no nginx []
+    . volume for wordpress database []

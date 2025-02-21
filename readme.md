@@ -13,6 +13,7 @@ quement sans nginx
 - container Docker contenant MariaDB uniquement sans nginx
 - volume contenant votre base de données WordPress
 - second volume contenant les fichiers de votre site WordPress
+- restart container on crash
 - docker-network(La ligne network(s) doit être présente dans
 votre fichier docker-compose.yml)
 - Deux utilisateurs seront présents dans votre base de données WordPress(un admin mais non nom pas admin, administrator, admin-123,...)
