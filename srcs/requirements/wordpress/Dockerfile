@@ -1,7 +1,7 @@
 FROM alpine:3.21
 
 RUN apk update && apk upgrade \
-&& apk add --no-cache php php83 php83-fpm php83-opcache php83-gd php83-mysqli php83-zlib php83-curl \
+&& apk add --no-cache php php82 php82-fpm php82-opcache php82-gd php82-mysqli php82-zlib php82-curl \
 && rm /var/cache/apk/*
 
 RUN chmod +x /usr/bin/php

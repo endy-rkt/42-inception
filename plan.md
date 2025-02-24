@@ -25,3 +25,4 @@
     . configure and link php-fpm and wordpress []
     . no nginx []
     . volume for wordpress database []
+
