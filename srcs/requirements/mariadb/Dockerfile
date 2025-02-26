@@ -11,6 +11,10 @@ COPY conf/my.cnf /etc
 
 RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
+# COPY conf/init.sql /docker-entrypoint-initdb.d/
+
+# RUN chown mysql:mysql /docker-entrypoint-initdb.d/init.sql
+
 EXPOSE 3306
 
 ENTRYPOINT ["mariadbd-safe"]

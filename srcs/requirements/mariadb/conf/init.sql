@@ -1,0 +1,4 @@
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+DROP USER ''@'localhost';
+DROP DATABASE IF EXISTS test;
+FLUSH PRIVILEGES;
