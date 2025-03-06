@@ -11,7 +11,11 @@ COPY conf/my.cnf /etc
 
 RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
-COPY  wp_db /var/lib/mysql/wp_db
+# COPY  wp_db /var/lib/mysql/wp_db
+
+COPY  init_db.sql /var/lib/mysql
+
+# RUN chown mysql:mysql /var/lib/mysql/wp_db
 
 # COPY conf/init.sql /docker-entrypoint-initdb.d/
 
