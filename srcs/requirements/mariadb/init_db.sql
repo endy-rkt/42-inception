@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS wp_db;
+
 USE wp_db;
 
 -- Create wp_users table
