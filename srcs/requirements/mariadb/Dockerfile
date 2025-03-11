@@ -13,21 +13,19 @@ RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
 # COPY  wp_db /var/lib/mysql/wp_db
 
-COPY  init_db.sql /var/lib/mysql
+COPY  conf/init_db.sql /var/lib/mysql
+
+COPY  conf/secure_sql.sql /var/lib/mysql
 
 COPY  conf/entrypoint.sh  /entrypoint.sh
-
-# RUN chown mysql:mysql /var/lib/mysql/wp_db
-
-# COPY conf/init.sql /docker-entrypoint-initdb.d/
-
-# RUN chown mysql:mysql /docker-entrypoint-initdb.d/init.sql
 
 RUN chmod 755 entrypoint.sh
 
 EXPOSE 3306
 
-ENTRYPOINT ["/entrypoint.sh"]
-# ENTRYPOINT ["mariadbd-safe"]
+RUN sh /entrypoint.sh
 
-# CMD ["mariadbd-safe", "--user=mysql"]
+ENTRYPOINT ["mariadbd-safe"]
+
+CMD ["--user=mysql"]
+
