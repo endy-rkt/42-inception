@@ -8,6 +8,6 @@ RUN apk update && apk upgrade \
 
 EXPOSE 80
 
-ENTRYPOINT ["php-fpm83"]
+ENTRYPOINT ["php-fpm82"]
 
 CMD ["-F", "-R"]

@@ -1,12 +1,14 @@
 version: '3'
 services:
   mariadb:
-    image: mariadb:0.2
+    image: mariadb:0.1
     container_name: mariadb
     ports:
       - "8000:3306"
     volumes:
-      - /home/trazanad/data/wp_db:/var/lib/mysql/wp_db
+      - /home/trazanad/data/wp_db:/var/wp_db
+      - db-data:/var/lib/mysql
+    restart: always
   php-fpm:
     image: php:0.1
     container_name: php
@@ -14,11 +16,17 @@ services:
       - "8001:80"
     volumes:
       - /home/trazanad/data/wordpress:/var/lib/wordpress
+    restart: always
   nginx:
     image: nginx:0.1
     container_name: nginx
+    depends_on:
+      - mariadb
     ports:
       - "8080:443"
     volumes:
       - /home/trazanad/data/wordpress:/var/www/trazanad.42.fr
+    restart: always
 
+volumes:
+  db-data:
