@@ -15,14 +15,35 @@
     . start up [OK]
     . is on foreground [OK]
     . start with some data []
-    . is secure installation []
+    . wp data [ok]
+    . is secure installation [ok]
     . restart on crash []
 
 - create wordpress via Dockerfile using alpine []
-    . install php-fpm  []
-    . configure php-fpm []
+    . install php-fpm  [ok]
+    . configure php-fpm [ok]
     . install wordpress
     . configure and link php-fpm and wordpress []
-    . no nginx []
+    . no nginx [ok]
     . volume for wordpress database []
+    . restart on crash []
+
+
+- link php-fpm and nginx []
+    . link conf container to container []
+    . link conf file for wp []
+    . shared volume []
+
+- database in a volume []
+    . add wp file in data [ok]
+    . configure wp-config []
+    . make a site []
+
+- docker compose []
+    . body []
+    . network []
+    . specify each link network []
+    . restart on crash []
+
+
 
