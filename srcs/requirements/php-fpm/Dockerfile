@@ -6,7 +6,9 @@ RUN apk update && apk upgrade \
 
 # RUN chmod +x /usr/bin/php
 
-EXPOSE 80
+COPY conf/www.conf /etc/php82/php-fpm.d
+
+EXPOSE 9000
 
 ENTRYPOINT ["php-fpm82"]
 

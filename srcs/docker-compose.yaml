@@ -13,9 +13,9 @@ services:
     image: php:0.1
     container_name: php
     ports:
-      - "8001:80"
+      - "9000:9000"
     volumes:
-      - /home/trazanad/data/wordpress:/var/lib/wordpress
+      - /home/trazanad/data/wordpress:/var/www/trazanad.42.fr
     restart: always
   nginx:
     image: nginx:0.1
