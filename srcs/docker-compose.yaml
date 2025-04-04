@@ -4,7 +4,7 @@ services:
     image: mariadb:0.1
     container_name: mariadb
     ports:
-      - "8000:3306"
+      - "3307:3306"
     volumes:
       - /home/trazanad/data/wp_db:/var/wp_db
       - db-data:/var/lib/mysql
@@ -12,6 +12,8 @@ services:
   php-fpm:
     image: php:0.1
     container_name: php
+    depends_on:
+      - mariadb
     ports:
       - "9000:9000"
     volumes:
