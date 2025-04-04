@@ -25,7 +25,6 @@ EXPOSE 3306
 
 RUN sh /entrypoint.sh
 
-ENTRYPOINT ["mariadbd-safe"]
+ENTRYPOINT ["mariadbd"]
 
 CMD ["--user=mysql"]
-
