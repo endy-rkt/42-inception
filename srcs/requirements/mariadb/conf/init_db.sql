@@ -40,3 +40,6 @@ VALUES
 (LAST_INSERT_ID(), 'wp_capabilities', 'a:1:{s:13:"administrator";b:1;}'),
 (LAST_INSERT_ID(), 'wp_user_level', '10');
 
+GRANT ALL PRIVILEGES ON wp_db.* TO 'admin'@'%' IDENTIFIED BY 'admin';
+FLUSH PRIVILEGES;
+
