@@ -20,7 +20,7 @@ services:
       - /home/trazanad/data/wordpress:/var/www/trazanad.42.fr
     restart: always
   nginx:
-    image: nginx:0.1
+    image: nginx:0.2
     container_name: nginx
     depends_on:
       - mariadb
