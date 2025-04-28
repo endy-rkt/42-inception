@@ -21,6 +21,8 @@ COPY  conf/entrypoint.sh  /entrypoint.sh
 
 RUN chmod 755 entrypoint.sh
 
+RUN chown -R mysql:mysql /var/lib/mysql
+
 EXPOSE 3306
 
 RUN sh /entrypoint.sh
