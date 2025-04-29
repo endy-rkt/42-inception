@@ -1,7 +1,7 @@
 version: '3'
 services:
   mariadb:
-    image: mariadb:0.2
+    image: mariadb:0.1
     container_name: mariadb
     ports:
       - "3307:3306"
@@ -41,5 +41,5 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/trazanad/data/wp_db/mysql
+      device: /home/trazanad/data/mysql
       o: bind

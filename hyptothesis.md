@@ -11,4 +11,3 @@ docker kill --signal="<signal>" <container name or id>
 5- No specific network yet just default docker-compose one
 
 6- Hypothesis for redis
-    

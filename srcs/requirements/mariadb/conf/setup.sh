@@ -10,9 +10,6 @@ until mariadb -u root -e "SELECT 1" &>/dev/null; do
     sleep 5
 done
 
-echo "Running initial SQL script..."
-mariadb -u "root" < /var/lib/mysql/init_db.sql
-
 echo "Running secure installation SQL script..."
 mariadb -u "root" < /var/lib/mysql/secure_sql.sql
 
