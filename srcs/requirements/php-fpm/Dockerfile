@@ -6,8 +6,6 @@ RUN apk update && apk upgrade \
 
 COPY conf/www.conf /etc/php82/php-fpm.d
 
-EXPOSE 9000
-
 ENTRYPOINT ["php-fpm82"]
 
 CMD ["-F", "-R"]

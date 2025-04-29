@@ -3,8 +3,8 @@ services:
   mariadb:
     image: mariadb:0.1
     container_name: mariadb
-    ports:
-      - "3307:3306"
+    networks:
+      - php-db-net
     volumes:
       - db-data:/var/lib/mysql
     restart: always
@@ -13,8 +13,9 @@ services:
     container_name: php
     depends_on:
       - mariadb
-    ports:
-      - "9000:9000"
+    networks:
+      - php-db-net
+      - php-nginx-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
@@ -25,9 +26,15 @@ services:
       - mariadb
     ports:
       - "8080:443"
+    networks:
+      - php-nginx-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
+
+networks:
+  php-nginx-net:
+  php-db-net:
 
 volumes:
   wp-data:

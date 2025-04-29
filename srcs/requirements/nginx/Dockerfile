@@ -1,14 +1,12 @@
 FROM alpine:3.21
 
 RUN apk update && apk upgrade \
-&& apk add --no-cache nginx \
+&& apk add --no-cache nginx openssl \
 && rm /var/cache/apk/*
 
-COPY cert/secret.key /etc/nginx
-
-COPY cert/secret.crt /etc/nginx
-
-COPY conf/default.conf /etc/nginx/http.d
+RUN mkdir /etc/nginx/cert \
+&& openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/cert/secret.key -x509 -days 365 \
+-out /etc/nginx/cert/secret.crt -subj "/C=MG/ST=Madagascar/L=Antananarivo/O=42/OU=42Antananarivo/CN=trazanad.42.fr"
 
 COPY conf/trazanad.42.fr.conf /etc/nginx/http.d
 
