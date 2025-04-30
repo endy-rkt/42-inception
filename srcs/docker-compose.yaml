@@ -31,13 +31,6 @@ services:
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
-  adminer:
-    image: adminer:0.0
-    container_name: adminer
-    depends_on:
-      - mariadb
-    ports:
-      - "8000:80"
 
 # networks:
 #   php-nginx-net:
