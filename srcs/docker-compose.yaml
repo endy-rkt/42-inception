@@ -31,6 +31,20 @@ services:
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
+  ftp:
+    image: ftp:0.1
+    container_name: ftp
+    ports:
+      - "7000:21"
+    volumes:
+      - wp-data:/var/www/trazanad.42.fr
+    restart: always
+  redis:
+    image: redis:0.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
 
 # networks:
 #   php-nginx-net:
