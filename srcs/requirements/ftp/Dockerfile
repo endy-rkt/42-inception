@@ -10,13 +10,12 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup \
 && mkdir -p /var/www/trazanad.42.fr \
 chown appuser:appuser /var/www
 
-# USER appuser
-
 COPY /conf/proftpd.conf /etc/proftpd/proftpd.conf
 
 WORKDIR /var/www/trazanad.42.fr
 
-EXPOSE 21
+EXPOSE 21 60000-60010
 
+ENTRYPOINT ["proftpd"]
 
-ENTRYPOINT ["proftpd", "--nodaemon"]
+CMD [ "--nodaemon" ]

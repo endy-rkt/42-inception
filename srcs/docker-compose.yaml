@@ -36,15 +36,16 @@ services:
     container_name: ftp
     ports:
       - "7000:21"
+      - "60000-60010:60000-60010"
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
-  redis:
-    image: redis:0.0
-    container_name: redis
-    ports:
-      - "6379:6379"
-    restart: always
+  # redis:
+  #   image: redis:0.0
+  #   container_name: redis
+  #   ports:
+  #     - "6379:6379"
+  #   restart: always
 
 # networks:
 #   php-nginx-net:
