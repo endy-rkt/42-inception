@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS wp_db;
+
+CREATE USER IF NOT EXISTS 'trazanad'@'%' IDENTIFIED BY 'trazanad';
+
+GRANT ALL PRIVILEGES ON wp_db.* TO 'trazanad'@'%';
+
+FLUSH PRIVILEGES;

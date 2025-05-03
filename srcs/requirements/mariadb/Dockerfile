@@ -8,6 +8,8 @@ COPY conf/my.cnf /etc
 
 RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
+COPY  conf/init_user.sql /tmp
+
 COPY  conf/secure_sql.sql /tmp
 
 COPY  conf/setup.sh  /tmp/setup.sh
