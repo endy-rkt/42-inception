@@ -11,13 +11,10 @@ until mariadb -u root -e "SELECT 1" &>/dev/null; do
 done
 
 echo "Running wordpress user initialization..."
-mariadb -u root < /tmp/init_user.sql
-
-echo "Databases after init:"
-mariadb -u root -e "SHOW DATABASES;"
+mariadb -u root < /init_user.sql
 
 echo "Running secure installation SQL script..."
-mariadb -u "root" < /tmp/secure_sql.sql
+mariadb -u "root" < /secure_sql.sql
 
 kill -9 $MARIADB_PID
 

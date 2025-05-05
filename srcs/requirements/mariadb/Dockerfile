@@ -8,14 +8,14 @@ COPY conf/my.cnf /etc
 
 RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
-COPY  conf/init_user.sql /tmp
+COPY  conf/init_user.sql /
 
-COPY  conf/secure_sql.sql /tmp
+COPY  conf/secure_sql.sql /
 
-COPY  conf/setup.sh  /tmp/setup.sh
+COPY  conf/setup.sh  /setup.sh
 
-RUN chown -R mysql:mysql /var/lib/mysql && chmod 755 /tmp/setup.sh \
-&& sh /tmp/setup.sh
+RUN chown -R mysql:mysql /var/lib/mysql && chmod -R 755 /var/lib/mysql \
+&& chmod 755 /setup.sh && /bin/sh /setup.sh
 
 ENTRYPOINT ["mariadbd"]
 

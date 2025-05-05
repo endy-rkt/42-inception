@@ -16,6 +16,14 @@ services:
     # networks:
     #   - php-db-net
     #   - php-nginx-net
+    environment:
+      - DB_NAME
+      - DB_USER 
+      - DB_PASS 
+      - DB_HOST
+      - WP_USER 
+      - WP_USER_EMAIL
+      - WP_USER_PASSWORD 
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
@@ -37,15 +45,19 @@ services:
     ports:
       - "7000:21"
       - "60000-60010:60000-60010"
+    environment:
+      - FTP_USER
+      - FTP_GROUP
+      - FTP_USER_PASSWORD
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
-  # redis:
-  #   image: redis:0.0
-  #   container_name: redis
-  #   ports:
-  #     - "6379:6379"
-  #   restart: always
+  redis:
+    image: redis:0.1
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
 
 # networks:
 #   php-nginx-net:
@@ -56,12 +68,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/trazanad/data/wordpress
+      device: /home/debian/data/wordpress
       o: bind
 
   db-data:
     driver: local
     driver_opts:
       type: none
-      device: /home/trazanad/data/mysql
+      device: /home/debian/data/mysql
       o: bind

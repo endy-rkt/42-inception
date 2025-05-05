@@ -8,4 +8,5 @@ COPY /conf/redis.conf /etc/redis.conf
 
 EXPOSE 6379
 
-ENTRYPOINT ["redis-server"]
+# ENTRYPOINT ["redis-server"]
+ENTRYPOINT ["redis-server", "--bind", "0.0.0.0", "--protected-mode", "no"]
