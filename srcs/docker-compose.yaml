@@ -5,6 +5,11 @@ services:
     container_name: mariadb
     # networks:
     #   - php-db-net
+    environment:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_USER
+      - MARIADB_PASSWORD
+      - MARIADB_DB
     volumes:
       - db-data:/var/lib/mysql
     restart: always
@@ -68,12 +73,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/debian/data/wordpress
+      device: /home/trazanad/data/wordpress
       o: bind
 
   db-data:
     driver: local
     driver_opts:
       type: none
-      device: /home/debian/data/mysql
+      device: /home/trazanad/data/mysql
       o: bind
