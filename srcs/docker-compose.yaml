@@ -38,7 +38,7 @@ services:
     depends_on:
       - mariadb
     ports:
-      - "8080:443"
+      - "443:443"
     # networks:
     #   - php-nginx-net
     volumes:
@@ -73,12 +73,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/trazanad/data/wordpress
+      device: /home/debian/data/wordpress
       o: bind
 
   db-data:
     driver: local
     driver_opts:
       type: none
-      device: /home/trazanad/data/mysql
+      device: /home/debian/data/mysql
       o: bind

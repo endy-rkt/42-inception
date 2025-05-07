@@ -14,7 +14,8 @@ COPY conf/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh \
 && mkdir -p /var/lib/mysql && mkdir -p /run/mysqld \
-&& chown -R mysql:mysql /run/mysqld && chmod -R 755 /run/mysqld
+&& chown -R mysql:mysql /run/mysqld && chmod -R 755 /run/mysqld \
+&& chown -R mysql:mysql /var/lib/mysql && chmod -R 755 /var/lib/mysql 
 
 ENTRYPOINT ["/entrypoint.sh"]
 # CMD ["--user=mysql"]
