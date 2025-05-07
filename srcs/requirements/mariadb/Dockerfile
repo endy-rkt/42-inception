@@ -5,17 +5,11 @@ RUN apk update && apk upgrade \
   && rm /var/cache/apk/*
 
 COPY conf/my.cnf /etc
-
-COPY conf/init_user.sql /
-
-COPY conf/secure_sql.sql /
-
+COPY conf/init-db.sh /init-db.sh
 COPY conf/entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /entrypoint.sh \
-&& mkdir -p /var/lib/mysql && mkdir -p /run/mysqld \
-&& chown -R mysql:mysql /run/mysqld && chmod -R 755 /run/mysqld \
-&& chown -R mysql:mysql /var/lib/mysql && chmod -R 755 /var/lib/mysql 
+RUN chmod +x /entrypoint.sh  /init-db.sh \
+  && mkdir -p /var/lib/mysql && mkdir -p /run/mysqld \
+  && chown -R mysql:mysql /run/mysqld &&  chown -R mysql:mysql /var/lib/mysql
 
 ENTRYPOINT ["/entrypoint.sh"]
-# CMD ["--user=mysql"]
