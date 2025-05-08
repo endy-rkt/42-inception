@@ -8,6 +8,10 @@ RUN mkdir /etc/nginx/cert \
 && openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/cert/secret.key -x509 -days 365 \
 -out /etc/nginx/cert/secret.crt -subj "/C=MG/ST=Madagascar/L=Antananarivo/O=trazanad/OU=trazanad/CN=trazanad.42.fr"
 
+RUN mkdir -p /var/www/trazanad.42.fr && chmod -R 777 /var/www/trazanad.42.fr \
+    && adduser -S www-data -G www-data \
+    && chown -R www-data:www-data /var/www/trazanad.42.fr
+
 COPY conf/trazanad.42.fr.conf /etc/nginx/http.d
 
 COPY conf/nginx.conf /etc/nginx

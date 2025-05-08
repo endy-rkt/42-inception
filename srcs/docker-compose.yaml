@@ -22,6 +22,7 @@ services:
     networks:
       - php-db-net
       - php-nginx-net
+      - redis-db-net
     environment:
       - DB_NAME
       - DB_USER 
@@ -80,12 +81,12 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/debian/data/wordpress
+      device: /home/trazanad/data/wordpress
       o: bind
 
   db-data:
     driver: local
     driver_opts:
       type: none
-      device: /home/debian/data/mysql
+      device: /home/trazanad/data/mysql
       o: bind

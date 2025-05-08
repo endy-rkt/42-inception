@@ -11,7 +11,9 @@ COPY conf/php.ini /etc/php82/php.ini
 COPY conf/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh \
-    && mkdir -p /var/www/trazanad.42.fr && chmod -R 755 /var/www/trazanad.42.fr
+    && mkdir -p /var/www/trazanad.42.fr && chmod -R 777 /var/www/trazanad.42.fr \
+    && adduser -S www-data -G www-data \
+    && chown -R www-data:www-data /var/www/trazanad.42.fr
 
 RUN curl -o /wp-cli.phar -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x /wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
