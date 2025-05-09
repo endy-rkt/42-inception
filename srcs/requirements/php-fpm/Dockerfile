@@ -11,7 +11,7 @@ COPY conf/php.ini /etc/php82/php.ini
 COPY conf/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh \
-    && mkdir -p /var/www/trazanad.42.fr && chmod -R 777 /var/www/trazanad.42.fr \
+    && mkdir -p /var/www/trazanad.42.fr && chmod -R 755 /var/www/trazanad.42.fr \
     && adduser -S www-data -G www-data \
     && chown -R www-data:www-data /var/www/trazanad.42.fr
 

@@ -19,13 +19,13 @@ if [ ! -f /var/www/trazanad.42.fr/wp-config.php ]; then
 
   wp plugin install classic-editor --activate --path=/var/www/trazanad.42.fr --allow-root
 
-  chmod -R 777 /var/www/trazanad.42.fr
+  chown -R www-data:www-data /var/www/trazanad.42.fr
 
-  # chmod 777 /var/www/trazanad.42.fr/wp-config.php
+  chmod -R 775 /var/www/trazanad.42.fr/wp-content
 
   wp plugin install redis-cache --activate --path=/var/www/trazanad.42.fr --allow-root
 
-  # wp redis enable
+  # wp redis enable --path=/var/www/trazanad.42.fr --allow-root
 fi
 
 exec "$@"
