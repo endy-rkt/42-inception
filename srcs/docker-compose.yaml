@@ -3,9 +3,9 @@ services:
   mariadb:
     image: mariadb:0.1
     container_name: mariadb
-    networks:
-      - php-db-net
-      - redis-db-net
+    # networks:
+    #   - php-db-net
+    #   - redis-db-net
     environment:
       - MARIADB_ROOT_PASSWORD
       - DB_USER 
@@ -19,10 +19,10 @@ services:
     container_name: php
     depends_on:
       - mariadb
-    networks:
-      - php-db-net
-      - php-nginx-net
-      - redis-db-net
+    # networks:
+    #   - php-db-net
+    #   - php-nginx-net
+    #   - redis-db-net
     environment:
       - DB_NAME
       - DB_USER 
@@ -44,8 +44,8 @@ services:
       - mariadb
     ports:
       - "443:443"
-    networks:
-      - php-nginx-net
+    # networks:
+    #   - php-nginx-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
@@ -67,14 +67,14 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-    networks:
-      - redis-db-net
+    # networks:
+    #   - redis-db-net
     restart: always
 
-networks:
-  php-nginx-net:
-  php-db-net:
-  redis-db-net:
+# networks:
+#   php-nginx-net:
+#   php-db-net:
+#   redis-db-net:
 
 volumes:
   wp-data:

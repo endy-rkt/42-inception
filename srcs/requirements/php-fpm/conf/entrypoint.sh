@@ -2,7 +2,7 @@
 
 set -e
 
-sleep 3
+sleep 5
 
 if [ ! -f /var/www/trazanad.42.fr/wp-config.php ] && [ ! -f /var/www/trazanad.42.fr/wp-load.php ]; then
     wp core download  --path=/var/www/trazanad.42.fr --allow-root
@@ -10,6 +10,12 @@ fi
 
 if [ ! -f /var/www/trazanad.42.fr/wp-config.php ]; then
   wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASS --dbhost=$DB_HOST --path=/var/www/trazanad.42.fr --allow-root
+
+  sed -i "/^\/\* That's all, stop editing! Happy publishing. \*\//i \
+  define('WP_REDIS_HOST', 'redis');\
+  define('WP_REDIS_PORT', 6379);\
+  define('WP_REDIS_TIMEOUT', 2);\
+  define('WP_REDIS_READ_TIMEOUT', 2);" /var/www/trazanad.42.fr/wp-config.php
 
   wp core install --url="https://trazanad.42.fr" --title="Demo site" \
     --admin_user="$WP_ADMIN" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL" \
@@ -25,7 +31,9 @@ if [ ! -f /var/www/trazanad.42.fr/wp-config.php ]; then
 
   wp plugin install redis-cache --activate --path=/var/www/trazanad.42.fr --allow-root
 
-  # wp redis enable --path=/var/www/trazanad.42.fr --allow-root
+  wp option update redis_host redis --path=/var/www/trazanad.42.fr --allow-root
+
+  wp redis enable --path=/var/www/trazanad.42.fr --allow-root
 fi
 
 exec "$@"

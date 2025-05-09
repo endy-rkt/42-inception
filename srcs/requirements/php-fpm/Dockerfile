@@ -2,7 +2,7 @@ FROM alpine:3.21
 
 RUN apk update && apk upgrade \
   && apk add --no-cache \
-    php82 php82-fpm php82-opcache php82-gd php82-mysqli php82-zlib php82-curl php82-common php82-session php82-phar php82-pecl-redis php82-mbstring curl \
+    php82 php82-fpm php82-opcache php82-gd php82-mysqli php82-zlib php82-curl php82-common php82-session php82-phar php82-pecl-redis php82-mbstring php82-ctype curl \
   && ln -s /usr/bin/php82 /usr/bin/php \
   && rm -rf /var/cache/apk/*
 
