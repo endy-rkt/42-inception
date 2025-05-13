@@ -19,7 +19,12 @@ if [ ! -d "$DATADIR/mysql" ]; then
 
     kill "$MARIADB_PID"
     wait "$MARIADB_PID" 2>/dev/null
+
     echo "Database initialized."
+fi
+
+if [ ! -f "/var/lib/mysql/backup.sql" ]; then
+    touch /var/lib/mysql/backup.sql
 fi
 
 exec mariadbd --user=mysql --datadir="$DATADIR"

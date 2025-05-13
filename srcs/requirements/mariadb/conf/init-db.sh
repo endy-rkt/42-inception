@@ -13,3 +13,9 @@ mariadb -u root -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%'";
 mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASS'";
 
 mariadb -u root -p$DB_ROOT_PASS -e "FLUSH PRIVILEGES";
+
+if [ ! -f "/var/lib/mysql/backup.sql" ]; then
+    mariadb-dump --user=root --password=$DB_ROOT_PASS --lock-tables --all-databases  > /var/lib/mysql/backup.sql
+fi
+
+echo "secure installation done!"

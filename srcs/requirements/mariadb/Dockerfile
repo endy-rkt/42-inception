@@ -1,7 +1,7 @@
 FROM alpine:3.21
 
 RUN apk update && apk upgrade \
-  && apk add --no-cache mariadb mariadb-client \
+  && apk add --no-cache mariadb mariadb-client wget\
   && rm /var/cache/apk/*
 
 COPY conf/my.cnf /etc
