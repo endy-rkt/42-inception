@@ -12,6 +12,7 @@ if [ ! -f /var/www/trazanad.42.fr/wp-config.php ]; then
   wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASS --dbhost=$DB_HOST --path=/var/www/trazanad.42.fr --allow-root
 
   sed -i "/^\/\* That's all, stop editing! Happy publishing. \*\//i \
+  define('FS_METHOD', 'direct');\
   define('WP_REDIS_HOST', 'redis');\
   define('WP_REDIS_PORT', 6379);\
   define('WP_REDIS_TIMEOUT', 2);\
