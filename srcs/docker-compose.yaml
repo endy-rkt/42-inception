@@ -79,6 +79,7 @@ services:
     volumes:
       - wp-data:/var/www/trazanad.42.fr
       - db-data:/var/lib/mysql
+      - backup-data:/backup
     restart: always
 
 # networks:
@@ -110,4 +111,11 @@ volumes:
     driver_opts:
       type: none
       device: /home/trazanad/data/mysql
+      o: bind
+
+  backup-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/trazanad/data/backup
       o: bind
