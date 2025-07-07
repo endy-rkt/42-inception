@@ -2,6 +2,11 @@
 
 set -e
 
+#assign variable
+DB_PASS=$(cat /run/secrets/db_pass)
+
+DB_ROOT_PASS=$(cat /run/secrets/db_root_pass)
+
 #init wordpress database
 mariadb -u root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME";
 

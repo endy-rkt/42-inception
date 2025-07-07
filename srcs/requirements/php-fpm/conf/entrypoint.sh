@@ -9,6 +9,10 @@ if [ ! -f /var/www/trazanad.42.fr/wp-config.php ] && [ ! -f /var/www/trazanad.42
 fi
 
 if [ ! -f /var/www/trazanad.42.fr/wp-config.php ]; then
+  DB_PASS=$(cat /run/secrets/db_pass)
+  WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_pswd)
+  WP_USER_PASSWORD=$(cat /run/secrets/wp_user_pswd)
+
   wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASS --dbhost=$DB_HOST --path=/var/www/trazanad.42.fr --allow-root
 
   sed -i "/^\/\* That's all, stop editing! Happy publishing. \*\//i \

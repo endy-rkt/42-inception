@@ -2,9 +2,11 @@
 
 set -e
 
+FTP_USER_PSWD=$(cat /run/secrets/ftp_user_pswd)
+
 addgroup -S $FTP_GROUP && adduser -S $FTP_USER -G $FTP_GROUP
 
-echo "$FTP_USER:$FTP_USER_PASSWORD" | chpasswd
+echo "$FTP_USER:$FTP_USER_PSWD" | chpasswd
 
 mkdir -p /run/proftpd && touch /run/proftpd/proftpd.delay 
 

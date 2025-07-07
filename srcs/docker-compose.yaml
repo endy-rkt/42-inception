@@ -7,11 +7,11 @@ services:
     #   - php-db-net
     #   - redis-db-net
     environment:
-      - MARIADB_ROOT_PASSWORD
       - DB_USER 
-      - DB_PASS 
       - DB_NAME
-      - DB_ROOT_PASS
+    secrets:
+      - db_pass
+      - db_root_pass
     volumes:
       - db-data:/var/lib/mysql
     restart: always
@@ -27,14 +27,15 @@ services:
     environment:
       - DB_NAME
       - DB_USER 
-      - DB_PASS 
       - DB_HOST
       - WP_ADMIN 
       - WP_ADMIN_EMAIL
-      - WP_ADMIN_PASSWORD
       - WP_USER 
       - WP_USER_EMAIL
-      - WP_USER_PASSWORD
+    secrets:
+      - db_pass
+      - wp_admin_pswd
+      - wp_user_pswd
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
@@ -59,7 +60,8 @@ services:
     environment:
       - FTP_USER
       - FTP_GROUP
-      - FTP_USER_PASSWORD
+    secrets:
+      - ftp_user_pswd
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
@@ -83,6 +85,17 @@ services:
 #   php-nginx-net:
 #   php-db-net:
 #   redis-db-net:
+secrets:
+  ftp_user_pswd:
+    file: ../secrets/ftp_user_pswd.txt
+  db_pass:
+    file: ../secrets/db_pass.txt
+  db_root_pass:
+    file: ../secrets/db_root_pass.txt
+  wp_admin_pswd:
+    file: ../secrets/wp_admin_pswd.txt
+  wp_user_pswd:
+    file: ../secrets/wp_user_pswd.txt
 
 volumes:
   wp-data:
