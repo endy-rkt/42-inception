@@ -81,6 +81,18 @@ services:
       - db-data:/var/lib/mysql
       - backup-data:/backup
     restart: always
+  adminer:
+    image: adminer:0.1
+    container_name: adminer
+    depends_on:
+      - nginx
+    # networks:
+    #   - php-db-net
+    #   - php-nginx-net
+    #   - redis-db-net
+    volumes:
+      - wp-data:/var/www/trazanad.42.fr
+    restart: always
 
 # networks:
 #   php-nginx-net:
