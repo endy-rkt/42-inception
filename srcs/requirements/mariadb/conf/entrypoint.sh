@@ -10,7 +10,7 @@ if [ ! -d "$DATADIR/mysql" ]; then
     mariadbd --user=mysql --datadir="$DATADIR" &
     MARIADB_PID=$!
 
-    until mariadb -u root -e "SELECT 1" >/dev/null 2>&1; do
+    until mariadb -u root -e "SELECT 1" 2>/dev/null; do
         echo "Waiting for MariaDB to start..."
         sleep 2
     done

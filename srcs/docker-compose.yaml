@@ -3,9 +3,10 @@ services:
   mariadb:
     image: mariadb:0.1
     container_name: mariadb
-    # networks:
-    #   - php-db-net
-    #   - redis-db-net
+    networks:
+      - php-db-net
+      - redis-db-net
+      - adminer-db-net
     environment:
       - DB_USER 
       - DB_NAME
@@ -15,15 +16,16 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     restart: always
+
   php-fpm:
     image: php:0.1
     container_name: php
     depends_on:
       - mariadb
-    # networks:
-    #   - php-db-net
-    #   - php-nginx-net
-    #   - redis-db-net
+    networks:
+      - php-db-net
+      - php-redis-net
+      - php-nginx-net
     environment:
       - DB_NAME
       - DB_USER 
@@ -39,6 +41,7 @@ services:
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
+
   nginx:
     image: nginx:0.1
     container_name: nginx
@@ -46,11 +49,13 @@ services:
       - mariadb
     ports:
       - "443:443"
-    # networks:
-    #   - php-nginx-net
+    networks:
+      - php-nginx-net
+      - adminer-nginx-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
+
   ftp:
     image: ftp:0.1
     container_name: ftp
@@ -65,14 +70,18 @@ services:
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
+
   redis:
     image: redis:0.1
     container_name: redis
     ports:
       - "6379:6379"
-    # networks:
-    #   - redis-db-net
+    networks:
+      - redis-db-net
+      - php-redis-net
+      - adminer-redis-net
     restart: always
+
   rsync:
     image: rsync:0.1
     container_name: rsync
@@ -81,23 +90,29 @@ services:
       - db-data:/var/lib/mysql
       - backup-data:/backup
     restart: always
+
   adminer:
     image: adminer:0.1
     container_name: adminer
     depends_on:
       - nginx
-    # networks:
-    #   - php-db-net
-    #   - php-nginx-net
-    #   - redis-db-net
+    networks:
+      - adminer-db-net
+      - adminer-redis-net
+      - adminer-nginx-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
 
-# networks:
-#   php-nginx-net:
-#   php-db-net:
-#   redis-db-net:
+networks:
+  php-db-net:
+  php-redis-net:
+  php-nginx-net:
+  redis-db-net:
+  adminer-db-net:
+  adminer-redis-net:
+  adminer-nginx-net:
+
 secrets:
   ftp_user_pswd:
     file: ../secrets/ftp_user_pswd.txt
