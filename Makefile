@@ -14,7 +14,7 @@ all:	run
 		@echo "All services are up and ready..."
 		@echo "Use 'make stop' to stop services..."
 
-run:	build secret
+run:	secret
 		docker-compose -f ${COMPOSE_PATH} up -d
 
 stop:
@@ -31,12 +31,10 @@ secret:
 		@echo "All secrets are created."
 
 build:
-		@for i in $(SERVICES); do \
-			if [ -z "$$(docker images -q $$i:0.1)" ]; then \
-				echo "Image $$i:0.1 does not exist. Building..."; \
-				docker build -t $$i:0.1 $(SRCS)/requirements/$$i; \
-			fi; \
-		done;
+		docker-compose -f ${COMPOSE_PATH} build
 		@echo "All images are builded.";
+
+dir:
+		@mkdir -p $(DATA)/wordpress $(DATA)/mysql $(DATA)/backup
 
 .PHONY: all run stop secret build

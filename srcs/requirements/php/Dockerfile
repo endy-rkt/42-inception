@@ -16,9 +16,9 @@ RUN chmod +x /entrypoint.sh \
     && chown -R www-data:www-data /var/www/trazanad.42.fr
 
 RUN curl -o /wp-cli.phar -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x /wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp \
-    && curl -o /var/www/trazanad.42.fr/adminer.php -L https://github.com/vrana/adminer/releases/download/v5.3.0/adminer-5.3.0.php \
-    && chmod 755 /var/www/trazanad.42.fr/adminer.php
+    && chmod +x /wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+
+RUN wp core download  --path=/var/www/trazanad.42.fr --allow-root
 
 ENTRYPOINT ["/entrypoint.sh"]
 
