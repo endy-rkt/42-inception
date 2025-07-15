@@ -55,6 +55,7 @@ services:
     networks:
       - php-nginx-net
       - adminer-nginx-net
+      - nginx-flask-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
     restart: always
@@ -79,8 +80,6 @@ services:
     image: redis:0.1
     container_name: redis
     build: requirements/redis
-    ports:
-      - "6379:6379"
     networks:
       - redis-db-net
       - php-redis-net
@@ -95,6 +94,14 @@ services:
       - wp-data:/var/www/trazanad.42.fr
       - db-data:/var/lib/mysql
       - backup-data:/backup
+    restart: always
+  
+  flask:
+    image: flask:0.1
+    container_name: flask
+    build: requirements/flask
+    networks:
+      - nginx-flask-net
     restart: always
 
   adminer:
@@ -119,6 +126,7 @@ networks:
   adminer-db-net:
   adminer-redis-net:
   adminer-nginx-net:
+  nginx-flask-net:
 
 secrets:
   ftp_user_pswd:

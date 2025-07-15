@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href={{ url_for("static",filename="style.css")}}> -->
+    <style>
+        *{
+        box-sizing: border-box;
+        }
+
+        :root{
+            --cell-size:100px;
+            --mark-size: calc(var(--cell-size)*.9);
+        }
+
+        body{
+            margin: 0;
+        }
+
+        .board{
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            justify-items: center;
+            align-items: center;
+            grid-template-columns: repeat(3,auto);
+        }
+
+        .cell{
+            width: var(--cell-size);
+            height: var(--cell-size);
+            border: 1px solid black ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /*x*/
+        .cell.x,
+        .cell.circle{
+            cursor: not-allowed;
+        }
+
+        .board.x .cell:not(.x):not(.circle):hover::before,
+        .board.x .cell:not(.x):not(.circle):hover::after,
+        .board.circle .cell:not(.x):not(.circle):hover::before,
+        .board.circle .cell:not(.x):not(.circle):hover::after{
+            background-color: lightgray;
+        }
+
+        .cell.x::before,
+        .cell.cell.x::after,
+        .cell.circle::before{
+            background-color: black;
+        }
+
+        .cell.x::before,
+        .cell.cell.x::after,
+        .board.x .cell:not(.x):not(.circle):hover::before,
+        .board.x .cell:not(.x):not(.circle):hover::after{
+            content: "";
+            position: absolute;
+            width: calc(var(--mark-size) * .15);
+            height: var(--mark-size);
+        }
+        .cell.x::before,
+        .board.x .cell:not(.x):not(.circle):hover::before{
+            transform: rotate(45deg);
+        }
+        .cell.x::after,
+        .board.x .cell:not(.x):not(.circle):hover::after{
+            transform: rotate(-45deg);
+        }
+
+        /*circle*/
+        .cell.circle::before,
+        .cell.circle::after,
+        .board.circle .cell:not(.x):not(.circle):hover::before,
+        .board.circle .cell:not(.x):not(.circle):hover::after{
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .cell.circle::before,
+        .board.circle .cell:not(.x):not(.circle):hover::before{
+            width: var(--mark-size);
+            height: var(--mark-size);
+        }
+
+        .cell.cell.circle::after,
+        .board.circle .cell:not(.x):not(.circle):hover::after{
+            width: calc(var(--mark-size)*.7);
+            height: calc(var(--mark-size)*.7);
+            background-color: white;
+        }
+
+        /*winning*/
+        .winning-message{
+            display: none;
+            position:fixed;
+            top:0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-size: 5rem;
+        }
+
+        .winning-message button{
+            background-color: white;
+            border: 1px solid black;
+            font-size: 3rem;
+            padding: .25rem .3rem;
+            cursor: pointer;;
+        }
+
+        .winning-message button:hover{
+            background-color: black;
+            color: white;
+            border-color: white;
+        }
+
+        .winning-message.show{
+            display: flex;
+        }
+    </style>
+    <script defer>
+        const CIRCLE_CLASS="circle"
+        const X_CLASS="x"
+        const cellElts=document.querySelectorAll("[data-cell]")
+        const board=document.getElementById("board")
+        const winningMessage=document.getElementById("winningMessage")
+        let circleTurn
+        const restartButton=document.getElementById('restartButton')
+        const winningMessageTextElt=document.querySelector("[data-winning-message-text]")
+        const WINNING_COMBINATIONS=[
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6]
+        ]
+            
+        const checkWin=(currentClass)=>{
+            return WINNING_COMBINATIONS.some(combination=>{
+                return combination.every(index=>{
+                    return cellElts[index].classList.contains(currentClass)
+                })
+            })
+        }
+        
+        const placeMark=(currentClass,cell)=>{
+            cell.classList.add(currentClass)
+        }
+        
+        const swapTurns=()=>{
+            circleTurn =!circleTurn
+        }
+        
+        const setBoardHoverClass=()=>{
+            board.classList.remove(CIRCLE_CLASS)
+            board.classList.remove(X_CLASS)
+            if (circleTurn){
+                board.classList.add(CIRCLE_CLASS)
+            }else{
+                board.classList.add(X_CLASS)
+            }
+        }
+        
+        const isDraw=()=>{
+            return [...cellElts].every(cell=>{
+                return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
+            })
+        }
+
+        const endGame=(draw)=>{
+            if (isDraw()){
+                winningMessageTextElt.innerText="Draw!"
+            }else{
+                winningMessageTextElt.innerText=`${circleTurn ? "O's":"X's"} Wins!`
+            }
+            winningMessage.classList.add("show")
+        }
+
+        const handleClick=e=>{
+            const cell=e.target
+            const currentClass=circleTurn ? CIRCLE_CLASS:X_CLASS
+            placeMark(currentClass,cell)
+            if (checkWin(currentClass)){
+                endGame(false)
+            }else if (isDraw()){
+                endGame(true)
+            }else{
+                swapTurns()
+                setBoardHoverClass()
+            } 
+        }
+
+        const startGame=()=>{
+            circleTurn=false
+            cellElts.forEach(cell=>{
+                cell.classList.remove(X_CLASS)
+                cell.classList.remove(CIRCLE_CLASS)
+                cell.removeEventListener("click",handleClick)
+                cell.addEventListener("click",handleClick,{once:true})
+            })
+            setBoardHoverClass()
+            winningMessage.classList.remove("show")
+        }
+
+        startGame()
+
+        restartButton.addEventListener("click",startGame)
+    </script>
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div class="board" id="board">
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+        <div class="cell"   data-cell></div>
+    </div>
+    <div class="winning-message" id="winningMessage">
+        <div data-winning-message-text></div>
+        <button id="restartButton">Restart</button>
+    </div>
+</body>
+</html>
