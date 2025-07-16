@@ -12,8 +12,9 @@ RUN chmod +x /create_backup.sh \
     && chown -R www-data:www-data /var/www/trazanad.42.fr \
     && mkdir /backup  && chown -R www-data:www-data  /backup
 
-RUN echo '*/10 * * * * /bin/sh /create_backup.sh' > /etc/crontabs/root
+RUN echo '*/4 * * * * /bin/sh /create_backup.sh' > /etc/crontabs/root
+
 
 ENTRYPOINT [ "crond" ]
 
-CMD ["-l", "8", "-f"]
+CMD ["-f"]
