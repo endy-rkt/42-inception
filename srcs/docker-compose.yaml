@@ -6,8 +6,8 @@ services:
     build: requirements/mariadb
     networks:
       - php-db-net
-      - redis-db-net
       - adminer-db-net
+      - redis-db-net
     environment:
       - DB_USER 
       - DB_NAME
@@ -83,9 +83,9 @@ services:
     container_name: redis
     build: requirements/redis
     networks:
-      - redis-db-net
       - php-redis-net
       - adminer-redis-net
+      - redis-db-net
     restart: always
 
   rsync:
@@ -126,12 +126,12 @@ networks:
   php-db-net:
   php-redis-net:
   php-nginx-net:
-  redis-db-net:
   adminer-db-net:
   adminer-redis-net:
   adminer-nginx-net:
   nginx-flask-net:
   ftp-rsync-net:
+  redis-db-net:
 
 secrets:
   ftp_user_pswd:
