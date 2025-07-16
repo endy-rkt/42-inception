@@ -19,7 +19,4 @@ mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASS'"
 
 mariadb -u root -p$DB_ROOT_PASS -e "FLUSH PRIVILEGES";
 
-#create cron
-echo '*/5 * * * * mariadb-dump --user=root --password=$DB_ROOT_PASS --lock-tables --all-databases  > /var/lib/mysql/backup.sql' > /etc/crontabs/root
-
 echo "secure installation done!"

@@ -64,6 +64,8 @@ services:
     image: ftp:0.1
     container_name: ftp
     build: requirements/ftp
+    networks:
+      - ftp-rsync-net
     ports:
       - "7000:21"
       - "60000-60010:60000-60010"
@@ -90,6 +92,8 @@ services:
     image: rsync:0.1
     container_name: rsync
     build: requirements/rsync
+    networks:
+      - ftp-rsync-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
       - db-data:/var/lib/mysql
@@ -127,6 +131,7 @@ networks:
   adminer-redis-net:
   adminer-nginx-net:
   nginx-flask-net:
+  ftp-rsync-net:
 
 secrets:
   ftp_user_pswd:
