@@ -1,0 +1,8 @@
+rsync ok
+flask ok
+redis -+
+ftp -+
+mariadb -+
+php -+
+adminer -+
+nginx -+
