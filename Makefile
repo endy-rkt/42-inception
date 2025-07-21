@@ -15,10 +15,10 @@ all:	run
 		@echo "Use 'make stop' to stop services..."
 
 run:	secret
-		docker-compose -f ${COMPOSE_PATH} up -d
+		docker-compose -f $(COMPOSE_PATH) up -d
 
 stop:
-		docker-compose -f ${COMPOSE_PATH} down
+		docker-compose -f $(COMPOSE_PATH) down
 
 secret:
 		@for i in $(SECRETS); do \
@@ -37,4 +37,10 @@ build:
 dir:
 		@mkdir -p $(DATA)/wordpress $(DATA)/mysql $(DATA)/backup
 
-.PHONY: all run stop secret build
+clean:
+		docker container prune -f
+
+fclean:	clean
+		docker rmi $$(docker images -q)
+
+.PHONY: all run stop secret build dir clean fclean
