@@ -10,6 +10,12 @@ DB_ROOT_PASS=$(cat /run/secrets/db_root_pass)
 #init wordpress database
 mariadb -u root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME";
 
+#local host
+mariadb -u root -e "CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS'";
+
+mariadb -u root -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost'";
+
+#remote host
 mariadb -u root -e "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS'";
 
 mariadb -u root -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%'";
