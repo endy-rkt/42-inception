@@ -26,8 +26,8 @@ services:
       - mariadb
     networks:
       - wp-db-net
-      - wp-redis-net
       - wp-nginx-net
+      - wp-redis-net
     environment:
       - DB_NAME
       - DB_USER 
@@ -48,8 +48,6 @@ services:
     image: nginx:0.1
     container_name: nginx
     build: requirements/nginx
-    depends_on:
-      - mariadb
     ports:
       - "443:443"
     networks:
@@ -112,7 +110,7 @@ services:
     container_name: adminer
     build: requirements/adminer
     depends_on:
-      - nginx
+      - mariadb
     networks:
       - adminer-db-net
       - adminer-redis-net
