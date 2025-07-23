@@ -6,7 +6,7 @@ SECRETS_SRCS = $(CURDIR)/secrets
 
 COMPOSE_PATH = $(SRCS)/docker-compose.yaml
 
-SERVICES = adminer ftp mariadb nginx php redis rsync
+SERVICES = adminer ftp mariadb nginx wordpress redis rsync
 
 SECRETS = db_pass db_root_pass ftp_user_pswd wp_admin_pswd wp_user_pswd
 

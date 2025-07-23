@@ -5,7 +5,7 @@ services:
     container_name: mariadb
     build: requirements/mariadb
     networks:
-      - php-db-net
+      - wp-db-net
       - adminer-db-net
       - redis-db-net
     environment:
@@ -18,16 +18,16 @@ services:
       - db-data:/var/lib/mysql
     restart: always
 
-  php:
-    image: php:0.1
-    container_name: php
-    build: requirements/php
+  wordpress:
+    image: wordpress:0.1
+    container_name: wordpress
+    build: requirements/wordpress
     depends_on:
       - mariadb
     networks:
-      - php-db-net
-      - php-redis-net
-      - php-nginx-net
+      - wp-db-net
+      - wp-redis-net
+      - wp-nginx-net
     environment:
       - DB_NAME
       - DB_USER 
@@ -53,7 +53,7 @@ services:
     ports:
       - "443:443"
     networks:
-      - php-nginx-net
+      - wp-nginx-net
       - adminer-nginx-net
       - nginx-flask-net
     volumes:
@@ -83,7 +83,7 @@ services:
     container_name: redis
     build: requirements/redis
     networks:
-      - php-redis-net
+      - wp-redis-net
       - adminer-redis-net
       - redis-db-net
     restart: always
@@ -96,7 +96,6 @@ services:
       - ftp-rsync-net
     volumes:
       - wp-data:/var/www/trazanad.42.fr
-      - db-data:/var/lib/mysql
       - backup-data:/backup
     restart: always
   
@@ -123,9 +122,9 @@ services:
     restart: always
 
 networks:
-  php-db-net:
-  php-redis-net:
-  php-nginx-net:
+  wp-db-net:
+  wp-redis-net:
+  wp-nginx-net:
   adminer-db-net:
   adminer-redis-net:
   adminer-nginx-net:
