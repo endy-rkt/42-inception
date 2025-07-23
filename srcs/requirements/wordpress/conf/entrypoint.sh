@@ -32,7 +32,7 @@ if [ ! -f /var/www/trazanad.42.fr/wp-config.php ]; then
   wp redis enable --path=/var/www/trazanad.42.fr --allow-root
 fi
 
-chmod -R 755 /var/www/trazanad.42.fr
+chmod -R 775 /var/www/trazanad.42.fr
 
 chown -R www-data:www-data /var/www/trazanad.42.fr
 
