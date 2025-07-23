@@ -15,7 +15,7 @@ all:	run
 		@echo "Use 'make stop' to stop services..."
 
 run:	secret
-		docker-compose -f $(COMPOSE_PATH) up -d
+		docker-compose -f $(COMPOSE_PATH) up --build -d
 
 stop:
 		docker-compose -f $(COMPOSE_PATH) down
