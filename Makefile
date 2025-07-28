@@ -41,6 +41,6 @@ clean:
 		docker container prune -f
 
 fclean:	clean
-		docker rmi $$(docker images -q)
+		docker rmi -f $$(docker images -aq)
 
 .PHONY: all run stop secret build dir clean fclean
