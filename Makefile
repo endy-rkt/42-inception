@@ -6,8 +6,6 @@ SECRETS_SRCS = $(CURDIR)/secrets
 
 COMPOSE_PATH = $(SRCS)/docker-compose.yaml
 
-SERVICES = adminer ftp mariadb nginx wordpress redis rsync
-
 SECRETS = db_pass db_root_pass ftp_user_pswd wp_admin_pswd wp_user_pswd
 
 all:	run
@@ -37,10 +35,4 @@ build:
 dir:
 		@mkdir -p $(DATA)/wordpress $(DATA)/mysql $(DATA)/backup
 
-clean:
-		docker container prune -f
-
-fclean:	clean
-		docker rmi -f $$(docker images -aq)
-
-.PHONY: all run stop secret build dir clean fclean
+.PHONY: all run stop secret build dir

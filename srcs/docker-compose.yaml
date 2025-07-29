@@ -61,7 +61,7 @@ services:
   ftp:
     image: ftp:0.1
     container_name: ftp
-    build: requirements/ftp
+    build: requirements/bonus/ftp
     networks:
       - ftp-rsync-net
     ports:
@@ -79,7 +79,7 @@ services:
   redis:
     image: redis:0.1
     container_name: redis
-    build: requirements/redis
+    build: requirements/bonus/redis
     networks:
       - wp-redis-net
       - adminer-redis-net
@@ -89,7 +89,7 @@ services:
   rsync:
     image: rsync:0.1
     container_name: rsync
-    build: requirements/rsync
+    build: requirements/bonus/rsync
     networks:
       - ftp-rsync-net
     volumes:
@@ -100,7 +100,7 @@ services:
   flask:
     image: flask:0.1
     container_name: flask
-    build: requirements/flask
+    build: requirements/bonus/flask
     networks:
       - nginx-flask-net
     restart: always
@@ -108,7 +108,7 @@ services:
   adminer:
     image: adminer:0.1
     container_name: adminer
-    build: requirements/adminer
+    build: requirements/bonus/adminer
     depends_on:
       - mariadb
     networks:
